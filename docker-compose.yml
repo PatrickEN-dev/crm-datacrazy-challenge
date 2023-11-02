@@ -1,0 +1,43 @@
+version: "3.9"
+
+services:
+  back:
+    container_name: todo-corelab__server
+    build:
+      context: ./back/
+    ports:
+      - ${SERVER_PORT:-3001}:${SERVER_PORT:-3001}
+    env_file:
+      - .env
+    depends_on:
+      database:
+        condition: service_healthy
+    command: sh -c "yarn prisma migrate dev && yarn start:dev"
+    volumes:
+      - ./back:/app
+  
+  database:
+    container_name: crm-datacrazy__database
+    image: postgres:15-alpine
+    ports:
+      - ${LOCAL_PG_PORT:-5454}:5432
+    env_file:
+      - .env
+    healthcheck:
+      test: ["CMD-SHELL", "pg_isready -U $POSTGRES_USER -d $POSTGRES_DB"]
+      interval: 10s
+      timeout: 5s
+      retries: 5
+      start_period: 5s
+
+  front:
+    container_name: crm-datacrazy__front
+    build:
+      context: ./front/
+    ports:
+      - "3000:3000" 
+    depends_on:
+      - back
+    command: sh -c "yarn dev"
+    volumes:
+      - ./front:/app
