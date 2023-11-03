@@ -2,6 +2,13 @@ import { Exclude } from 'class-transformer';
 
 export class User {
   readonly id: string;
+
+  constructor() {
+    this.createdAt = new Date();
+    this.updatedAt = new Date();
+    this.deletedAt = null;
+  }
+
   name: string;
   email: string;
   phone: string;
@@ -14,10 +21,4 @@ export class User {
 
   @Exclude()
   readonly deletedAt: Date | null;
-
-  constructor() {
-    this.createdAt = new Date();
-    this.updatedAt = new Date();
-    this.deletedAt = null;
-  }
 }
