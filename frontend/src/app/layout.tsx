@@ -1,5 +1,5 @@
-import { UsersProvider } from "@/contexts/Users/users.context";
 import "./globals.css";
+import { UsersProvider } from "@/contexts/Users/users.context";
 import { IChildrenProps } from "@/@types/context.global";
 import { ModalProvider } from "@/contexts/Modal/modal.context";
 

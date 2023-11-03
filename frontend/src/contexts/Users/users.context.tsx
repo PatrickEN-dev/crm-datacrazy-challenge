@@ -42,8 +42,6 @@ export const UsersProvider = ({ children }: IChildrenProps) => {
     try {
       const { data } = await API.post<IUser>(`/users`, formData);
 
-      console.log(data);
-
       setUsers((users) => [...users, data]);
     } catch (error) {
       console.error("Erro ao criar o usuário:", error);

@@ -6,7 +6,7 @@ import { IUser } from "@/contexts/Users/interfaces";
 
 const UserCardList = () => {
   const { users } = useUsers();
-  console.log(users);
+
   return (
     <>
       {users.length > 0 ? (

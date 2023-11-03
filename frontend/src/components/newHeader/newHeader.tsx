@@ -1,6 +1,6 @@
 "use client";
 
-import { MenuIcon, ListOrderedIcon, HomeIcon, PercentIcon, PackageSearchIcon } from "lucide-react";
+import { MenuIcon, HomeIcon } from "lucide-react";
 import { Button } from "../ui/button";
 import { Card } from "../ui/card";
 import { Sheet, SheetClose, SheetContent, SheetHeader, SheetTrigger } from "../ui/sheet";
@@ -25,33 +25,6 @@ function NewHeader() {
                 <Button variant="outline" className="w-full justify-start gap-2">
                   <HomeIcon size={16} />
                   Início
-                </Button>
-              </Link>
-            </SheetClose>
-
-            <SheetClose asChild>
-              <Link href="/deals">
-                <Button variant="outline" className="w-full justify-start gap-2">
-                  <PercentIcon size={16} />
-                  Ofertas
-                </Button>
-              </Link>
-            </SheetClose>
-
-            <SheetClose asChild>
-              <Link href="/Catalog">
-                <Button variant="outline" className="w-full justify-start gap-2">
-                  <ListOrderedIcon size={16} />
-                  Catálogo
-                </Button>
-              </Link>
-            </SheetClose>
-
-            <SheetClose asChild>
-              <Link href="/orders">
-                <Button variant="outline" className="w-full justify-start gap-2">
-                  <PackageSearchIcon size={16} />
-                  Meus Pedidos
                 </Button>
               </Link>
             </SheetClose>

@@ -26,7 +26,7 @@ const ModalContent = () => {
   };
 
   return (
-    <form onSubmit={handleSubmit(submit)}>
+    <form onSubmit={handleSubmit(submit)} id="form-createUser" name="form-createUser">
       <DialogContent className="sm:max-w-[425px]">
         <DialogHeader>
           <DialogTitle>Create user</DialogTitle>
@@ -39,23 +39,25 @@ const ModalContent = () => {
             <Label htmlFor="Name" className="text-right">
               Nome
             </Label>
-            <input id="name" className="col-span-3" {...register("name")} />
+            <Input id="name" className="col-span-3" {...register("name")} />
           </div>
           <div className="grid grid-cols-4 items-center gap-4">
             <Label htmlFor="Email" className="text-right">
               Email
             </Label>
-            <input id="Email" className="col-span-3" type="mail" {...register("email")} />
+            <Input id="Email" className="col-span-3" type="mail" {...register("email")} />
           </div>
         </div>
         <div className="grid grid-cols-4 items-center gap-4">
           <Label htmlFor="Phone" className="text-right">
-            Telephone
+            Telefone
           </Label>
-          <input id="Phone" className="col-span-3" type="tel" {...register("phone")} />
+          <Input id="Phone" className="col-span-3" type="tel" {...register("phone")} />
         </div>
         <DialogFooter>
-          <button type="submit">criar</button>
+          <Button type="submit" form="form-createUser">
+            criar
+          </Button>
         </DialogFooter>
       </DialogContent>
     </form>
