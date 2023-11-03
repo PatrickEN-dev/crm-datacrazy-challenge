@@ -9,7 +9,7 @@ const UserCardList = () => {
   console.log(users);
   return (
     <>
-      {users ? (
+      {users.length > 0 ? (
         <ul className="md:flex md:flex-row mt-3 md:w-full md:min-w-fit md:overflow-x-auto">
           {users.map((user: IUser) => (
             <li key={user.id}>

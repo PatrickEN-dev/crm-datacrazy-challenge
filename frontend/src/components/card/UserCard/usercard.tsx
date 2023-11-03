@@ -4,6 +4,7 @@ import { IUser } from "@/contexts/Users/interfaces";
 import { useUsers } from "@/hooks/useUsers";
 import { TrashIcon } from "lucide-react";
 import { EditInput } from "../../editables/EditInput/editInput";
+import { Separator } from "@radix-ui/react-separator";
 
 interface IUserCardProps {
   userInfo: IUser;
@@ -12,7 +13,7 @@ interface IUserCardProps {
 const UserCard = ({ userInfo }: IUserCardProps) => {
   const { updateUser, deleteUser } = useUsers();
   return (
-    <div className={`h-[300px] p-4 pt-4 rounded-lg shadow-lg m-2 relative min-w-max`}>
+    <div className="h-[120px] p-4 pt-4 rounded-lg shadow-lg m-2 min-w-max">
       <header className="flex justify-between items-center pb-3 font-bold">
         <EditInput
           initialValue={userInfo.name}
@@ -25,14 +26,14 @@ const UserCard = ({ userInfo }: IUserCardProps) => {
           </button>
         </div>
       </header>
-      <div className="border-t-2 mt-2 flex justify-between items-center absolute bottom-2 left-2 right-2">
-        <div className="flex items-center space-x-2  h-6 spt-6 ml-4">
-          <EditInput
-            initialValue={userInfo.email}
-            onFormSubmit={({ value }) => updateUser(userInfo.id, { email: value })}
-            className="border-0 outline-none"
-          />
-        </div>
+      <Separator />
+
+      <div className="flex item-center w-full text-center justify-center">
+        <EditInput
+          initialValue={userInfo.email}
+          onFormSubmit={({ value }) => updateUser(userInfo.id, { email: value })}
+          className="border-0 outline-none"
+        />
       </div>
     </div>
   );

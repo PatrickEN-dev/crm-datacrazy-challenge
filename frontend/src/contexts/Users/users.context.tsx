@@ -26,7 +26,7 @@ export const UsersProvider = ({ children }: IChildrenProps) => {
           setUsers(response.data);
           return response.data;
         } else {
-          const response = await API.get("/users");
+          const response = await API.get("/users/all");
           setUsers(response.data);
           return response.data;
         }
@@ -41,6 +41,8 @@ export const UsersProvider = ({ children }: IChildrenProps) => {
   const addUser = async (formData: IUserRequest) => {
     try {
       const { data } = await API.post<IUser>(`/users`, formData);
+
+      console.log(data);
 
       setUsers((users) => [...users, data]);
     } catch (error) {

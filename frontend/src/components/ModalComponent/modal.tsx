@@ -21,6 +21,7 @@ const ModalContent = () => {
   const { register, handleSubmit } = useForm<ICreateFormValues>();
 
   const submit: SubmitHandler<ICreateFormValues> = (formData: IUserRequest) => {
+    console.log("FORMDATA", formData);
     addUser(formData);
   };
 
@@ -38,23 +39,23 @@ const ModalContent = () => {
             <Label htmlFor="Name" className="text-right">
               Nome
             </Label>
-            <Input id="name" className="col-span-3" {...register("name")} />
+            <input id="name" className="col-span-3" {...register("name")} />
           </div>
           <div className="grid grid-cols-4 items-center gap-4">
             <Label htmlFor="Email" className="text-right">
               Email
             </Label>
-            <Input id="Email" className="col-span-3" type="mail" {...register("email")} />
+            <input id="Email" className="col-span-3" type="mail" {...register("email")} />
           </div>
         </div>
         <div className="grid grid-cols-4 items-center gap-4">
           <Label htmlFor="Phone" className="text-right">
             Telephone
           </Label>
-          <Input id="Phone" className="col-span-3" type="tel" {...register("phone")} />
+          <input id="Phone" className="col-span-3" type="tel" {...register("phone")} />
         </div>
         <DialogFooter>
-          <Button type="submit">criar</Button>
+          <button type="submit">criar</button>
         </DialogFooter>
       </DialogContent>
     </form>
