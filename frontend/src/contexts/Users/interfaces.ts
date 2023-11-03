@@ -12,7 +12,7 @@ export interface IUser {
 
 export interface IUserUpdate extends Partial<IUser> {}
 
-export interface IUserRequest extends Omit<IUser, "id"> {}
+export interface IUserRequest extends Omit<IUser, "id" | "createdAt" | "updatedAt" | "deletedAt"> {}
 
 export interface IUserCrudContext {
   users: IUser[];

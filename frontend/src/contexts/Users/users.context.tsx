@@ -18,7 +18,7 @@ export const UsersProvider = ({ children }: IChildrenProps) => {
   const search = searchParams.get("search");
 
   useEffect(() => {
-    const getCardsRequest = async () => {
+    const getUsersRequest = async () => {
       try {
         if (search) {
           const response = await API.get(`/users/search?query=${search}`);
@@ -35,7 +35,7 @@ export const UsersProvider = ({ children }: IChildrenProps) => {
         throw error;
       }
     };
-    getCardsRequest();
+    getUsersRequest();
   }, [search]);
 
   const addUser = async (formData: IUserRequest) => {
