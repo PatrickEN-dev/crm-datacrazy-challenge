@@ -6,12 +6,10 @@ import { SubmitHandler, useForm } from "react-hook-form";
 import { Search } from "lucide-react";
 
 const SearchBar = () => {
+  const router = useRouter();
   const { register, handleSubmit } = useForm<IEditFormValues>();
 
-  const router = useRouter();
-
   const onSubmit: SubmitHandler<IEditFormValues> = (data) => {
-    console.log(data);
     router.push("/", { query: { search: data.value } });
   };
 
@@ -29,10 +27,7 @@ const SearchBar = () => {
               paddingRight: "40px",
             }}
           />
-          <button
-            type="submit"
-            className="absolute top-0 right-0 p-2.5 text-sm font-medium h-full text-white bg-slate-300"
-          >
+          <button type="submit">
             <Search />
           </button>
         </div>

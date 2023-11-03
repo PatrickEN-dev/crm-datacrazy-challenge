@@ -1,10 +1,12 @@
 "use client";
 
-import { MenuIcon, HomeIcon } from "lucide-react";
+import { MenuIcon, HomeIcon, Calendar } from "lucide-react";
 import { Button } from "../ui/button";
 import { Card } from "../ui/card";
 import { Sheet, SheetClose, SheetContent, SheetHeader, SheetTrigger } from "../ui/sheet";
 import Link from "next/link";
+import { DatePickerDemo } from "../DatePicker/datePicker";
+import SearchBar from "../SearchBar/searchBar";
 
 function NewHeader() {
   return (
@@ -28,9 +30,28 @@ function NewHeader() {
                 </Button>
               </Link>
             </SheetClose>
+
+            <SheetHeader className="text-left text-lg font-semibold">Filtros</SheetHeader>
+
+            <SheetTrigger asChild>
+              <h1>Por período</h1>
+            </SheetTrigger>
+
+            <Button variant="outline" className="w-full justify-start gap-2">
+              <Calendar size={16} />
+              <DatePickerDemo />
+            </Button>
           </nav>
+          <h2 className="w-full text-center px-2">Até</h2>
+
+          <Button variant="outline" className="w-full justify-start gap-2">
+            <Calendar size={16} />
+            <DatePickerDemo />
+          </Button>
         </SheetContent>
       </Sheet>
+
+      <div>{/* <SearchBar /> */}</div>
 
       <Link href="/">
         <h1 className="text-lg font-semibold">

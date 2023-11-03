@@ -6,6 +6,7 @@ import {
 import { CreateUserDto } from './dto/create-user.dto';
 import { UpdateUserDto } from './dto/update-user.dto';
 import { UserRepository } from 'src/modules/users/repositories/users.repository';
+import { User } from './entities/user.entity';
 
 @Injectable()
 export class UsersService {
@@ -22,6 +23,27 @@ export class UsersService {
 
   async findAll() {
     return this.UserRepository.findAll();
+  }
+
+  getFilterByDates = async (
+    start_date?: Date,
+    end_date?: Date,
+  ): Promise<User[]> => {
+    const userData = await this.UserRepository.getFilterByDates(
+      start_date,
+      end_date,
+    );
+    return userData;
+  };
+
+  async findUserByMostRecentData(): Promise<User[]> {
+    const users = await this.UserRepository.findUSerByMostRecentData();
+    return users;
+  }
+
+  async findUserByMostOlderData(): Promise<User[]> {
+    const users = await this.UserRepository.findUserByMostOlderData();
+    return users;
   }
 
   async findByEmail(email: string) {

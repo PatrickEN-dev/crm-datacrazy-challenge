@@ -38,6 +38,42 @@ export class UserPrismaRepository implements UserRepository {
     return user;
   }
 
+  async findUSerByMostRecentData(): Promise<User[]> {
+    const user = await this.prisma.user.findMany({
+      orderBy: {
+        createdAt: 'asc',
+      },
+    });
+    return user;
+  }
+
+  async findUserByMostOlderData(): Promise<User[]> {
+    const user = await this.prisma.user.findMany({
+      orderBy: {
+        createdAt: 'desc',
+      },
+    });
+    return user;
+  }
+
+  getFilterByDates = async (
+    start_date?: Date,
+    end_date?: Date,
+  ): Promise<User[]> => {
+    const userData = await this.prisma.user.findMany({
+      where: {
+        createdAt: {
+          gte: start_date,
+          lte: end_date,
+        },
+      },
+      orderBy: {
+        createdAt: 'asc',
+      },
+    });
+    return userData;
+  };
+
   async update(id: string, data: UpdateUserDto): Promise<User> {
     const user = await this.prisma.user.update({
       where: { id },

@@ -6,6 +6,7 @@ import {
   Patch,
   Param,
   Delete,
+  Query,
 } from '@nestjs/common';
 import { UsersService } from './users.service';
 import { CreateUserDto } from './dto/create-user.dto';
@@ -21,8 +22,18 @@ export class UsersController {
   }
 
   @Get('all')
-  findAll() {
-    return this.usersService.findAll();
+  findAll(@Query('createdAt-gte') start_date?: Date, end_date?: Date) {
+    return this.usersService.getFilterByDates(start_date, end_date);
+  }
+
+  @Get('most-recent')
+  async findUserByMostRecentData() {
+    return this.usersService.findUserByMostRecentData();
+  }
+
+  @Get('most-older')
+  async findUserByMostOlderData() {
+    return this.usersService.findUserByMostOlderData();
   }
 
   @Get(':id')

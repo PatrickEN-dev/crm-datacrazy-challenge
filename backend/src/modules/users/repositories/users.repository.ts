@@ -5,6 +5,12 @@ import { User } from 'src/modules/users/entities/user.entity';
 export abstract class UserRepository {
   abstract create(data: CreateUserDto): Promise<User> | User;
   abstract findAll(): Promise<User[]> | User[];
+  abstract getFilterByDates(
+    start_date?: Date,
+    end_date?: Date,
+  ): Promise<User[]>;
+  abstract findUSerByMostRecentData(): Promise<User[]>;
+  abstract findUserByMostOlderData(): Promise<User[]>;
   abstract findone(id: string): Promise<User | undefined> | User | undefined;
   abstract findByEmail(
     email: string,
