@@ -21,9 +21,6 @@ export interface IUserCrudContext {
   addUser: (User: IUserRequest) => void;
   updateUser: (id: string, updatedUser: IUserUpdate) => void;
   deleteUser: (id: string) => void;
-
-  searchUsers: string;
-  setSearchUsers: React.Dispatch<React.SetStateAction<string>>;
-  filterUsers: IUser[];
-  setFilterUsers: React.Dispatch<React.SetStateAction<IUser[]>>;
+  searchUsersMostRecent: () => () => Promise<void>;
+  searchUsersMostOld: () => () => Promise<void>;
 }

@@ -7,8 +7,17 @@ import { Sheet, SheetClose, SheetContent, SheetHeader, SheetTrigger } from "../u
 import Link from "next/link";
 import { DatePickerDemo } from "../DatePicker/datePicker";
 import SearchBar from "../SearchBar/searchBar";
+import { useUsers } from "@/hooks/useUsers";
 
 function NewHeader() {
+  const { searchUsersMostOld, searchUsersMostRecent } = useUsers();
+
+  const handleSearchUsersMostOldClick = () => {
+    searchUsersMostOld();
+  };
+
+  const handleSearchUsersMostRecentClick = () => searchUsersMostRecent();
+
   return (
     <Card className="flex justify-between p-[1.875rem] items-center">
       <Sheet>
@@ -41,13 +50,35 @@ function NewHeader() {
               <Calendar size={16} />
               <DatePickerDemo />
             </div>
-          </nav>
-          <h2 className="w-full text-center px-2">Até</h2>
+            <h2 className="w-full text-center px-2">Até</h2>
 
-          <div className="w-full justify-start gap-2">
-            <Calendar size={16} />
-            <DatePickerDemo />
-          </div>
+            <div className="w-full justify-start gap-2">
+              <Calendar size={16} />
+              <DatePickerDemo />
+            </div>
+
+            <SheetClose asChild>
+              <Button
+                variant="outline"
+                className="w-full justify-start gap-2"
+                type="button"
+                onClick={handleSearchUsersMostRecentClick}
+              >
+                usuários mais recentes
+              </Button>
+            </SheetClose>
+
+            <SheetClose asChild>
+              <Button
+                variant="outline"
+                className="w-full justify-start gap-2"
+                type="button"
+                onClick={handleSearchUsersMostOldClick}
+              >
+                usuários mais antigos
+              </Button>
+            </SheetClose>
+          </nav>
         </SheetContent>
       </Sheet>
 

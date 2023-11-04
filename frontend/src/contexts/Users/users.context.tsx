@@ -10,8 +10,6 @@ export const UsersContext = createContext<IUserCrudContext>({} as IUserCrudConte
 
 export const UsersProvider = ({ children }: IChildrenProps) => {
   const [users, setUsers] = useState<IUser[]>([]);
-  const [searchUsers, setSearchUsers] = useState("");
-  const [filterUsers, setFilterUsers] = useState<IUser[]>([]);
 
   const searchParams = useSearchParams();
 
@@ -68,6 +66,21 @@ export const UsersProvider = ({ children }: IChildrenProps) => {
     }
   };
 
+  function searchUserBy(by: String) {
+    return async () => {
+      try {
+        const response = await API.get<IUser[]>(`/users/${by}`);
+        setUsers(response.data);
+      } catch (error) {
+        console.error("Erro ao buscar o usuário:", error);
+      }
+    };
+  }
+
+  const searchUsersMostRecent = () => searchUserBy("most-recent");
+
+  const searchUsersMostOld = () => searchUserBy("most-older");
+
   return (
     <UsersContext.Provider
       value={{
@@ -76,10 +89,8 @@ export const UsersProvider = ({ children }: IChildrenProps) => {
         addUser,
         updateUser,
         deleteUser,
-        searchUsers,
-        setSearchUsers,
-        filterUsers,
-        setFilterUsers,
+        searchUsersMostRecent,
+        searchUsersMostOld,
       }}
     >
       {children}
