@@ -5,6 +5,7 @@ import { useUsers } from "@/hooks/useUsers";
 import { TrashIcon } from "lucide-react";
 import { EditInput } from "../../editables/EditInput/editInput";
 import { Separator } from "@radix-ui/react-separator";
+import { Card } from "@/components/ui/card";
 
 interface IUserCardProps {
   userInfo: IUser;
@@ -13,7 +14,7 @@ interface IUserCardProps {
 const UserCard = ({ userInfo }: IUserCardProps) => {
   const { updateUser, deleteUser } = useUsers();
   return (
-    <div className="h-[120px] p-4 pt-4 rounded-lg shadow-lg m-2 min-w-max">
+    <Card className="h-[120px] p-4 pt-4 rounded-lg shadow-lg m-2 min-w-max">
       <header className="flex justify-between items-center pb-3 font-bold">
         <EditInput
           initialValue={userInfo.name}
@@ -35,7 +36,7 @@ const UserCard = ({ userInfo }: IUserCardProps) => {
           className="border-0 outline-none"
         />
       </div>
-    </div>
+    </Card>
   );
 };
 

@@ -51,7 +51,9 @@ function NewHeader() {
         </SheetContent>
       </Sheet>
 
-      <div>{/* <SearchBar /> */}</div>
+      <div>
+        <SearchBar />
+      </div>
 
       <Link href="/">
         <h1 className="text-lg font-semibold">

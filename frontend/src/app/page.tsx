@@ -1,7 +1,6 @@
 import CreateUserButton from "@/components/CreateUserButton/createUserButton";
 import UserCardList from "@/components/card/UserCardList/userCardList";
 import NewHeader from "@/components/newHeader/newHeader";
-import { useRouter } from "next/router";
 
 export default function Home() {
   return (
