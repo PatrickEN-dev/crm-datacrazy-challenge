@@ -52,6 +52,11 @@ export class UsersService {
     return userEmail;
   }
 
+  async findhUserByName(query?: string) {
+    const userQuery = await this.UserRepository.findUserByName(query);
+    return userQuery;
+  }
+
   async findOne(id: string) {
     const findUser = await this.UserRepository.findone(id);
     if (!findUser) throw new NotFoundException('User not found');

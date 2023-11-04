@@ -38,6 +38,19 @@ export class UserPrismaRepository implements UserRepository {
     return user;
   }
 
+  async findUserByName(query: string): Promise<User[]> {
+    const users = await this.prisma.user.findMany({
+      where: {
+        name: {
+          contains: query,
+          mode: 'insensitive',
+        },
+      },
+    });
+
+    return users;
+  }
+
   async findUSerByMostRecentData(): Promise<User[]> {
     const user = await this.prisma.user.findMany({
       orderBy: {

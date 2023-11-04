@@ -9,6 +9,7 @@ export abstract class UserRepository {
     start_date?: Date,
     end_date?: Date,
   ): Promise<User[]>;
+  abstract findUserByName(query: string): Promise<User[]>;
   abstract findUSerByMostRecentData(): Promise<User[]>;
   abstract findUserByMostOlderData(): Promise<User[]>;
   abstract findone(id: string): Promise<User | undefined> | User | undefined;
