@@ -15,7 +15,7 @@ export const UsersProvider = ({ children }: IChildrenProps) => {
 
   const searchParams = useSearchParams();
 
-  const search = searchParams.get("search");
+  const search = searchParams.get("query");
 
   useEffect(() => {
     const getUsersRequest = async () => {
@@ -68,15 +68,6 @@ export const UsersProvider = ({ children }: IChildrenProps) => {
     }
   };
 
-  const searchUsersByQuery = async (searchQuery: string) => {
-    try {
-      const response = await API.get(`/users/search?query=${searchQuery}`);
-      setFilterUsers(response.data);
-    } catch (error) {
-      console.error("Erro ao buscar os usuários por consulta:", error);
-    }
-  };
-
   return (
     <UsersContext.Provider
       value={{
@@ -89,7 +80,6 @@ export const UsersProvider = ({ children }: IChildrenProps) => {
         setSearchUsers,
         filterUsers,
         setFilterUsers,
-        searchUsersByQuery,
       }}
     >
       {children}

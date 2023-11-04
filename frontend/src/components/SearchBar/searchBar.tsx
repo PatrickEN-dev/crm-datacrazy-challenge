@@ -3,18 +3,18 @@
 import { Search } from "lucide-react";
 import { useSearchParams } from "next/navigation";
 import { useState } from "react";
-import { useUsers } from "@/hooks/useUsers";
+import { useRouter } from "next/navigation";
 
 const SearchBar = () => {
   const searchParams = useSearchParams();
   const queryParam = searchParams.get("query");
   const [searchQuery, setSearchQuery] = useState(queryParam || "");
 
-  const { searchUsersByQuery } = useUsers();
+  const router = useRouter();
 
   const handleSubmit = (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
-    searchUsersByQuery(searchQuery);
+    router.push(`?query=${searchQuery}`);
   };
 
   return (

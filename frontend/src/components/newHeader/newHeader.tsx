@@ -13,7 +13,7 @@ function NewHeader() {
     <Card className="flex justify-between p-[1.875rem] items-center">
       <Sheet>
         <SheetTrigger asChild>
-          <Button size="icon" variant="outline">
+          <Button size="icon" variant="outline" type="button">
             <MenuIcon />
           </Button>
         </SheetTrigger>
@@ -24,7 +24,7 @@ function NewHeader() {
           <nav className=" mt-4 flex flex-col gap-3">
             <SheetClose asChild>
               <Link href="/">
-                <Button variant="outline" className="w-full justify-start gap-2">
+                <Button variant="outline" className="w-full justify-start gap-2" type="button">
                   <HomeIcon size={16} />
                   Início
                 </Button>
@@ -37,17 +37,17 @@ function NewHeader() {
               <h1>Por período</h1>
             </SheetTrigger>
 
-            <Button variant="outline" className="w-full justify-start gap-2">
+            <div className="w-full justify-start gap-2">
               <Calendar size={16} />
               <DatePickerDemo />
-            </Button>
+            </div>
           </nav>
           <h2 className="w-full text-center px-2">Até</h2>
 
-          <Button variant="outline" className="w-full justify-start gap-2">
+          <div className="w-full justify-start gap-2">
             <Calendar size={16} />
             <DatePickerDemo />
-          </Button>
+          </div>
         </SheetContent>
       </Sheet>
 

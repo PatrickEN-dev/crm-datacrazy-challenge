@@ -11,7 +11,8 @@ import { useState } from "react";
 export function DatePickerDemo() {
   const [date, setDate] = useState<Date>();
 
-  console.log(date);
+  console.log(typeof date);
+  console.log("DATE SEM TYPEOF", date);
 
   return (
     <Popover>
