@@ -1,7 +1,7 @@
 # 💼 CRM-Datacrazy-Challenge
 
 **Descrição** 📝:
-O Client Contact Management é um projeto de gerenciamento de contatos de clientes que foi desenvolvido utilizando Node.js 18 e as frameworks Next.js (para o frontend) e Nest.js (para o backend). Este sistema permite que os usuários cadastrem, visualizem, atualizem e excluam informações de contatos de clientes.
+O CRM-Datacrazy-Challenge é um projeto de gerenciamento de contatos de clientes que foi desenvolvido utilizando Node.js 18 e as frameworks Next.js (para o frontend) e Nest.js (para o backend). Este sistema permite que os usuários cadastrem, visualizem, atualizem e excluam informações de contatos de clientes.
 
 ## Pré-requisitos
 
