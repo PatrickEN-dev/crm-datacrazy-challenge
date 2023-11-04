@@ -5,20 +5,24 @@ import UserCard from "../UserCard/usercard";
 import { IUser } from "@/contexts/Users/interfaces";
 
 const UserCardList = () => {
-  const { users } = useUsers();
+  const { users, filterUsers } = useUsers();
+
+  const usersToDisplay = filterUsers.length > 0 ? filterUsers : users;
 
   return (
     <>
-      {users.length > 0 ? (
+      {usersToDisplay.length > 0 ? (
         <ul className="md:flex md:flex-row mt-3 md:w-full md:min-w-fit md:overflow-x-auto">
-          {users.map((user: IUser) => (
+          {usersToDisplay.map((user: IUser) => (
             <li key={user.id}>
               <UserCard userInfo={user} />
             </li>
           ))}
         </ul>
       ) : (
-        <div>não há usuários aqui</div>
+        <div>
+          <h1>não há usuários aqui</h1>
+        </div>
       )}
     </>
   );
