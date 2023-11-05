@@ -22,6 +22,7 @@ export interface IUserCrudContext {
   endDate: Date | null;
   setEndDate: Dispatch<SetStateAction<Date | null>>;
 
+  fetchDataByDate: () => Promise<void>;
   addUser: (User: IUserRequest) => void;
   updateUser: (id: string, updatedUser: IUserUpdate) => void;
   deleteUser: (id: string) => void;

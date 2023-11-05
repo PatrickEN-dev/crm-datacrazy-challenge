@@ -15,7 +15,7 @@ export class UsersService {
   async create(createUserDto: CreateUserDto) {
     const findUser = await this.UserRepository.findByEmail(createUserDto.email);
 
-    if (findUser) throw new ConflictException('email already exists');
+    if (findUser) throw new ConflictException('Email já existente');
 
     const user = await this.UserRepository.create(createUserDto);
     return user;
@@ -74,26 +74,26 @@ export class UsersService {
 
   async findByEmail(email: string) {
     const userEmail = await this.UserRepository.findByEmail(email);
-    if (!userEmail) throw new NotFoundException('User not found');
+    if (!userEmail) throw new NotFoundException('Usuário não encontrado');
     return userEmail;
   }
 
   async findOne(id: string) {
     const findUser = await this.UserRepository.findone(id);
-    if (!findUser) throw new NotFoundException('User not found');
+    if (!findUser) throw new NotFoundException('Usuário não encontrado');
 
     return findUser;
   }
 
   async update(id: string, updateUserDto: UpdateUserDto) {
     const findUser = await this.UserRepository.findone(id);
-    if (!findUser) throw new NotFoundException('User not found');
+    if (!findUser) throw new NotFoundException('Usuário não encontrado');
     return this.UserRepository.update(id, updateUserDto);
   }
 
   async remove(id: string) {
     const findUser = await this.UserRepository.findone(id);
-    if (!findUser) throw new NotFoundException('User not found');
+    if (!findUser) throw new NotFoundException('Usuário não encontrado');
     return this.UserRepository.delete(id);
   }
 }

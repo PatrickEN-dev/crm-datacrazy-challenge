@@ -5,6 +5,7 @@ import { createContext, useEffect, useState } from "react";
 import { useSearchParams } from "next/navigation";
 import { IChildrenProps } from "@/@types/context.global";
 import { IUser, IUserCrudContext, IUserRequest, IUserUpdate } from "./interfaces";
+import { toast } from "react-toastify";
 
 export const UsersContext = createContext<IUserCrudContext>({} as IUserCrudContext);
 
@@ -30,16 +31,16 @@ export const UsersProvider = ({ children }: IChildrenProps) => {
   };
 
   const fetchDataByDate = async () => {
-    const [startDateParam, endDateParam] = usersFilterByDate!
-      .split("-")
-      .map((date) => new Date(date));
+    try {
+      const endpoint = `/users/date?createdAt-gte=${startDate!.toISOString()}&createdAt-lte=${endDate!.toISOString()}`;
+      const response = await API.get(endpoint);
 
-    const endpoint = `/users/date?createdAt-gte=${startDateParam.toISOString()}&createdAt-lte=${endDateParam.toISOString()}`;
-    const response = await API.get(endpoint);
-
-    setStartDate(startDateParam);
-    setEndDate(endDateParam);
-    setUsers(response.data);
+      setStartDate(startDate);
+      setEndDate(endDate);
+      setUsers(response.data);
+    } catch (error) {
+      console.error("Usuário não encontrado:", error);
+    }
   };
 
   useEffect(() => {
@@ -65,7 +66,13 @@ export const UsersProvider = ({ children }: IChildrenProps) => {
 
       setUsers((users) => [...users, data]);
     } catch (error) {
-      console.error("Erro ao criar o usuário:", error);
+      console.error("Erro ao criar usuário:", error);
+      toast.error("Erro ao criar usuário", {
+        position: "top-right",
+        autoClose: 1500,
+        theme: "light",
+        pauseOnHover: false,
+      });
     }
   };
 
@@ -76,6 +83,12 @@ export const UsersProvider = ({ children }: IChildrenProps) => {
       setUsers((users) => users.map((User) => (User.id === id ? { ...User, ...data } : User)));
     } catch (error) {
       console.error("Erro ao atualizar o usuário:", error);
+      toast.error("Erro ao atualizar usuário", {
+        position: "top-right",
+        autoClose: 1500,
+        theme: "light",
+        pauseOnHover: false,
+      });
     }
   };
 
@@ -86,19 +99,31 @@ export const UsersProvider = ({ children }: IChildrenProps) => {
       setUsers((users) => users.filter((User) => User.id !== id));
     } catch (error) {
       console.error("Erro ao excluir o usuário:", error);
+      toast.error("Erro ao excluir usuário usuário", {
+        position: "top-right",
+        autoClose: 1500,
+        theme: "light",
+        pauseOnHover: false,
+      });
     }
   };
 
-  function searchUserBy(by: String) {
+  const searchUserBy = (by: String) => {
     return async () => {
       try {
         const response = await API.get<IUser[]>(`/users/${by}`);
         setUsers(response.data);
       } catch (error) {
         console.error("Erro ao buscar o usuário:", error);
+        toast.error("Erro ao buscar usuário", {
+          position: "top-right",
+          autoClose: 1500,
+          theme: "light",
+          pauseOnHover: false,
+        });
       }
     };
-  }
+  };
 
   const searchUsersMostRecent = () => searchUserBy("most-recent");
 
@@ -118,6 +143,7 @@ export const UsersProvider = ({ children }: IChildrenProps) => {
         deleteUser,
         searchUsersMostRecent,
         searchUsersMostOld,
+        fetchDataByDate,
       }}
     >
       {children}

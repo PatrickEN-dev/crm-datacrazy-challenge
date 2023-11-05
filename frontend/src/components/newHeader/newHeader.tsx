@@ -9,6 +9,7 @@ import { DatePickerDemo } from "../DatePicker/datePicker";
 import SearchBar from "../SearchBar/searchBar";
 import { useUsers } from "@/hooks/useUsers";
 import { useRouter } from "next/navigation";
+import { toast } from "react-toastify";
 
 function NewHeader() {
   const router = useRouter();
@@ -20,6 +21,7 @@ function NewHeader() {
     setStartDate,
     endDate,
     setEndDate,
+    fetchDataByDate,
   } = useUsers();
 
   const handleSearchUsersMostOldClick = () => {
@@ -30,6 +32,38 @@ function NewHeader() {
   const handleSearchUsersMostRecentClick = () => {
     router.push(`?orderBy=desc`);
     searchUsersMostRecent();
+  };
+
+  const handleSearchUserByDateClick = () => {
+    if (!startDate || !endDate) {
+      toast.error("Por favor, selecione ambas as datas", {
+        position: "top-right",
+        autoClose: 3500,
+        theme: "light",
+        pauseOnHover: false,
+      });
+      return;
+    }
+
+    if (startDate >= endDate) {
+      toast.error("A data final deve ser maior que a data inicial", {
+        position: "top-right",
+        autoClose: 2500,
+        theme: "light",
+        pauseOnHover: false,
+      });
+      return;
+    }
+
+    const startDateParam = startDate.toISOString();
+    const endDateParam = endDate.toISOString();
+
+    setStartDate(startDate);
+    setEndDate(endDate);
+
+    router.push(`?date?createdAt-gte=${startDateParam}&createdAt-lte=${endDateParam}`);
+
+    fetchDataByDate();
   };
 
   return (
@@ -69,6 +103,8 @@ function NewHeader() {
               <Calendar size={16} />
               <DatePickerDemo selectedDate={endDate} onDateSelect={setEndDate} />
             </div>
+
+            <Button onClick={handleSearchUserByDateClick}>Aplicar</Button>
 
             <SheetClose asChild>
               <Button

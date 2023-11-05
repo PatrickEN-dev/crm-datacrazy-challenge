@@ -21,7 +21,6 @@ const ModalContent = () => {
   const { register, handleSubmit } = useForm<ICreateFormValues>();
 
   const submit: SubmitHandler<ICreateFormValues> = (formData: IUserRequest) => {
-    console.log("FORMDATA", formData);
     addUser(formData);
   };
 
