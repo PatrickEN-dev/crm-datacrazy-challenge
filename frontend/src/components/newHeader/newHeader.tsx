@@ -8,15 +8,26 @@ import Link from "next/link";
 import { DatePickerDemo } from "../DatePicker/datePicker";
 import SearchBar from "../SearchBar/searchBar";
 import { useUsers } from "@/hooks/useUsers";
+import { useRouter } from "next/navigation";
 
 function NewHeader() {
+  const router = useRouter();
+
+  const handleSubmit = (e: React.FormEvent<HTMLFormElement>) => {
+    e.preventDefault();
+  };
+
   const { searchUsersMostOld, searchUsersMostRecent } = useUsers();
 
   const handleSearchUsersMostOldClick = () => {
+    router.push(`?orderBy=asc`);
     searchUsersMostOld();
   };
 
-  const handleSearchUsersMostRecentClick = () => searchUsersMostRecent();
+  const handleSearchUsersMostRecentClick = () => {
+    router.push(`?orderBy=desc`);
+    searchUsersMostRecent();
+  };
 
   return (
     <Card className="flex justify-between p-[1.875rem] items-center">

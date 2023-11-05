@@ -35,12 +35,12 @@ export class UsersController {
     return this.usersService.findAll();
   }
 
-  @Get('most-recent')
+  @Get()
   async findUsersByMostRecentData(@Query('orderBy') orderBy: 'asc') {
     return this.usersService.findUsersByMostRecentData(orderBy);
   }
 
-  @Get('most-older')
+  @Get()
   async findUsersByMostOlderData(@Query('orderBy') orderBy: 'desc') {
     return this.usersService.findUsersByMostOlderData(orderBy);
   }

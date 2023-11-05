@@ -14,12 +14,18 @@ export const UsersProvider = ({ children }: IChildrenProps) => {
   const searchParams = useSearchParams();
 
   const search = searchParams.get("query");
+  const usersFilterByOrder = searchParams.get("orderBy");
 
   useEffect(() => {
     const getUsersRequest = async () => {
       try {
         if (search) {
           const response = await API.get(`/users/search?query=${search}`);
+
+          setUsers(response.data);
+          return response.data;
+        } else if (usersFilterByOrder) {
+          const response = await API.get(`/users?orderBy=${usersFilterByOrder}`);
 
           setUsers(response.data);
           return response.data;
@@ -34,7 +40,7 @@ export const UsersProvider = ({ children }: IChildrenProps) => {
       }
     };
     getUsersRequest();
-  }, [search]);
+  }, [search, usersFilterByOrder]);
 
   const addUser = async (formData: IUserRequest) => {
     try {
