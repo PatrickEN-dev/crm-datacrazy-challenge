@@ -10,8 +10,7 @@ export abstract class UserRepository {
     end_date?: Date,
   ): Promise<User[]>;
   abstract findUserByName(query: string): Promise<User[]>;
-  abstract findUSerByMostRecentData(): Promise<User[]>;
-  abstract findUserByMostOlderData(): Promise<User[]>;
+  abstract findUsersByQuery(orderBy: 'asc' | 'desc'): Promise<User[]>;
   abstract findone(id: string): Promise<User | undefined> | User | undefined;
   abstract findByEmail(
     email: string,

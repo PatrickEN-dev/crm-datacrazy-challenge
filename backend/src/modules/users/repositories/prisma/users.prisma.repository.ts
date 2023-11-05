@@ -39,6 +39,8 @@ export class UserPrismaRepository implements UserRepository {
   }
 
   async findUserByName(query: string): Promise<User[]> {
+    if (!query) return this.prisma.user.findMany();
+
     const users = await this.prisma.user.findMany({
       where: {
         name: {
@@ -51,28 +53,21 @@ export class UserPrismaRepository implements UserRepository {
     return users;
   }
 
-  async findUSerByMostRecentData(): Promise<User[]> {
-    const user = await this.prisma.user.findMany({
+  async findUsersByQuery(orderBy: 'asc' | 'desc'): Promise<User[]> {
+    if (!orderBy) return this.prisma.user.findMany();
+
+    const users = await this.prisma.user.findMany({
       orderBy: {
-        createdAt: 'asc',
+        createdAt: orderBy,
       },
     });
-    return user;
+
+    return users;
   }
 
-  async findUserByMostOlderData(): Promise<User[]> {
-    const user = await this.prisma.user.findMany({
-      orderBy: {
-        createdAt: 'desc',
-      },
-    });
-    return user;
-  }
+  async getFilterByDates(start_date?: Date, end_date?: Date): Promise<User[]> {
+    if (!start_date || !end_date) return this.prisma.user.findMany();
 
-  getFilterByDates = async (
-    start_date?: Date,
-    end_date?: Date,
-  ): Promise<User[]> => {
     const userData = await this.prisma.user.findMany({
       where: {
         createdAt: {
@@ -84,8 +79,9 @@ export class UserPrismaRepository implements UserRepository {
         createdAt: 'asc',
       },
     });
+
     return userData;
-  };
+  }
 
   async update(id: string, data: UpdateUserDto): Promise<User> {
     const user = await this.prisma.user.update({

@@ -22,39 +22,57 @@ export class UsersService {
   }
 
   async findAll() {
-    return this.UserRepository.findAll();
+    const users = await this.UserRepository.findAll();
+    if (!users) {
+      throw new NotFoundException('Nenhum usuário encontrado');
+    }
+    return users;
   }
 
-  getFilterByDates = async (
-    start_date?: Date,
-    end_date?: Date,
-  ): Promise<User[]> => {
+  async getFilterByDates(start_date?: Date, end_date?: Date): Promise<User[]> {
     const userData = await this.UserRepository.getFilterByDates(
       start_date,
       end_date,
     );
+    if (!userData || userData.length === 0) {
+      throw new NotFoundException(
+        'Nenhum usuário encontrado com as datas especificadas',
+      );
+    }
     return userData;
-  };
+  }
 
-  async findUserByMostRecentData(): Promise<User[]> {
-    const users = await this.UserRepository.findUSerByMostRecentData();
+  async findUsersByMostRecentData(orderBy: 'asc') {
+    const users = await this.UserRepository.findUsersByQuery(orderBy);
+    if (!users) {
+      throw new NotFoundException(
+        'Nenhum usuário encontrado com a ordenação especificada',
+      );
+    }
     return users;
   }
 
-  async findUserByMostOlderData(): Promise<User[]> {
-    const users = await this.UserRepository.findUserByMostOlderData();
+  async findUsersByMostOlderData(orderBy: 'desc') {
+    const users = await this.UserRepository.findUsersByQuery(orderBy);
+    if (!users) {
+      throw new NotFoundException(
+        'Nenhum usuário encontrado com a ordenação especificada',
+      );
+    }
     return users;
   }
 
+  async findUserByName(query?: string) {
+    const userQuery = await this.UserRepository.findUserByName(query);
+    if (!userQuery) {
+      throw new NotFoundException('Usuário não encontrado');
+    }
+    return userQuery;
+  }
   async findByEmail(email: string) {
     const userEmail = await this.UserRepository.findByEmail(email);
     if (!userEmail) throw new NotFoundException('User not found');
     return userEmail;
-  }
-
-  async findhUserByName(query?: string) {
-    const userQuery = await this.UserRepository.findUserByName(query);
-    return userQuery;
   }
 
   async findOne(id: string) {
