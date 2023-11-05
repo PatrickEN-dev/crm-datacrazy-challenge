@@ -1,6 +1,6 @@
-# Projeto Todo List CoreLab
+# Projeto CRM-DATACRAZY-CHALLENGE
 
-Este é o repositório do projeto Todo List CoreLab, que inclui tanto o front-end quanto o back-end.
+Este é o repositório do projeto CRM-DATACRAZY-CHALLENGE, que inclui tanto o front-end quanto o back-end.
 
 ## Resumo
 
