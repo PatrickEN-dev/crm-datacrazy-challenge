@@ -45,8 +45,8 @@ export class UsersController {
     return this.usersService.findUsersByMostOlderData(orderBy);
   }
 
-  @Get()
-  async searchUsers(@Query('query') query: string): Promise<User[]> {
+  @Get('search')
+  async findUserByName(@Query('query') query: string): Promise<User[]> {
     return await this.usersService.findUserByName(query);
   }
 

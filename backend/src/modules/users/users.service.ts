@@ -62,13 +62,16 @@ export class UsersService {
     return users;
   }
 
-  async findUserByName(query?: string) {
+  async findUserByName(query: string) {
     const userQuery = await this.UserRepository.findUserByName(query);
-    if (!userQuery) {
+
+    if (userQuery.length === 0) {
       throw new NotFoundException('Usuário não encontrado');
     }
+
     return userQuery;
   }
+
   async findByEmail(email: string) {
     const userEmail = await this.UserRepository.findByEmail(email);
     if (!userEmail) throw new NotFoundException('User not found');

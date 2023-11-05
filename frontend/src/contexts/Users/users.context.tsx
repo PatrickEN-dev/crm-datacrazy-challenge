@@ -19,26 +19,23 @@ export const UsersProvider = ({ children }: IChildrenProps) => {
   useEffect(() => {
     const getUsersRequest = async () => {
       try {
+        let response;
+
         if (search) {
-          const response = await API.get(`/users/search?query=${search}`);
-
-          setUsers(response.data);
-          return response.data;
+          response = await API.get(`/users/search?query=${search}`);
         } else if (usersFilterByOrder) {
-          const response = await API.get(`/users?orderBy=${usersFilterByOrder}`);
-
-          setUsers(response.data);
-          return response.data;
+          response = await API.get(`/users?orderBy=${usersFilterByOrder}`);
         } else {
-          const response = await API.get("/users/all");
-          setUsers(response.data);
-          return response.data;
+          response = await API.get("/users/all");
         }
+
+        setUsers(response.data);
       } catch (error) {
         console.error("Erro ao buscar resultados da pesquisa:", error);
         throw error;
       }
     };
+
     getUsersRequest();
   }, [search, usersFilterByOrder]);
 
