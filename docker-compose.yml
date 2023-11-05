@@ -2,7 +2,7 @@ version: "3.9"
 
 services:
   back:
-    container_name: todo-corelab__server
+    container_name: crm-datacrazy__server
     build:
       context: ./back/
     ports:
