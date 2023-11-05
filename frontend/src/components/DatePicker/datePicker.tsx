@@ -1,30 +1,29 @@
-"use client";
-
 import { format } from "date-fns";
-
 import { cn } from "@/lib/utils";
 import { Button } from "@/components/ui/button";
 import { Calendar } from "@/components/ui/calendar";
 import { Popover, PopoverContent, PopoverTrigger } from "@/components/ui/popover";
-import { useState } from "react";
 
-export function DatePickerDemo() {
-  const [date, setDate] = useState<Date>();
+interface IDatePickerProps {
+  selectedDate: Date | null;
+  onDateSelect: (date: Date | null) => void;
+}
 
-  if (date) {
-    const log = new Date(String(date)).toISOString();
-    console.log(log);
-  }
-
+export function DatePickerDemo({ selectedDate, onDateSelect }: IDatePickerProps) {
   return (
     <Popover>
       <PopoverTrigger asChild>
-        <Button variant={"outline"} className={cn("border-none w-full justify-normal")}>
-          {date ? format(date, "PPP") : <span>Escolha uma data</span>}
+        <Button variant="outline" className={cn("border-none w-full justify-normal")}>
+          {selectedDate ? format(selectedDate, "PPP") : <span>Escolha uma data</span>}
         </Button>
       </PopoverTrigger>
       <PopoverContent className="w-auto p-0">
-        <Calendar mode="single" selected={date} onSelect={setDate} initialFocus />
+        <Calendar
+          mode="single"
+          selected={selectedDate as any}
+          onSelect={onDateSelect as any}
+          initialFocus
+        />
       </PopoverContent>
     </Popover>
   );

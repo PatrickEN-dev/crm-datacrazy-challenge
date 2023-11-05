@@ -10,34 +10,54 @@ export const UsersContext = createContext<IUserCrudContext>({} as IUserCrudConte
 
 export const UsersProvider = ({ children }: IChildrenProps) => {
   const [users, setUsers] = useState<IUser[]>([]);
+  const [startDate, setStartDate] = useState<Date | null>(null);
+  const [endDate, setEndDate] = useState<Date | null>(null);
 
   const searchParams = useSearchParams();
 
   const search = searchParams.get("query");
   const usersFilterByOrder = searchParams.get("orderBy");
+  const usersFilterByDate = searchParams.get("date");
+
+  const fetchDataBySearch = async () => {
+    const response = await API.get(`/users/search?query=${search}`);
+    setUsers(response.data);
+  };
+
+  const fetchDataByOrder = async () => {
+    const response = await API.get(`/users?orderBy=${usersFilterByOrder}`);
+    setUsers(response.data);
+  };
+
+  const fetchDataByDate = async () => {
+    const [startDateParam, endDateParam] = usersFilterByDate!
+      .split("-")
+      .map((date) => new Date(date));
+
+    const endpoint = `/users/date?createdAt-gte=${startDateParam.toISOString()}&createdAt-lte=${endDateParam.toISOString()}`;
+    const response = await API.get(endpoint);
+
+    setStartDate(startDateParam);
+    setEndDate(endDateParam);
+    setUsers(response.data);
+  };
 
   useEffect(() => {
-    const getUsersRequest = async () => {
-      try {
-        let response;
-
-        if (search) {
-          response = await API.get(`/users/search?query=${search}`);
-        } else if (usersFilterByOrder) {
-          response = await API.get(`/users?orderBy=${usersFilterByOrder}`);
-        } else {
-          response = await API.get("/users/all");
-        }
-
+    const fetchData = async () => {
+      if (search) {
+        await fetchDataBySearch();
+      } else if (usersFilterByOrder) {
+        await fetchDataByOrder();
+      } else if (usersFilterByDate) {
+        await fetchDataByDate();
+      } else {
+        const response = await API.get("/users/all");
         setUsers(response.data);
-      } catch (error) {
-        console.error("Erro ao buscar resultados da pesquisa:", error);
-        throw error;
       }
     };
 
-    getUsersRequest();
-  }, [search, usersFilterByOrder]);
+    fetchData();
+  }, [search, usersFilterByOrder, usersFilterByDate]);
 
   const addUser = async (formData: IUserRequest) => {
     try {
@@ -89,6 +109,10 @@ export const UsersProvider = ({ children }: IChildrenProps) => {
       value={{
         users,
         setUsers,
+        startDate,
+        setStartDate,
+        endDate,
+        setEndDate,
         addUser,
         updateUser,
         deleteUser,

@@ -13,11 +13,14 @@ import { useRouter } from "next/navigation";
 function NewHeader() {
   const router = useRouter();
 
-  const handleSubmit = (e: React.FormEvent<HTMLFormElement>) => {
-    e.preventDefault();
-  };
-
-  const { searchUsersMostOld, searchUsersMostRecent } = useUsers();
+  const {
+    searchUsersMostOld,
+    searchUsersMostRecent,
+    startDate,
+    setStartDate,
+    endDate,
+    setEndDate,
+  } = useUsers();
 
   const handleSearchUsersMostOldClick = () => {
     router.push(`?orderBy=asc`);
@@ -59,13 +62,12 @@ function NewHeader() {
 
             <div className="w-full justify-start gap-2">
               <Calendar size={16} />
-              <DatePickerDemo />
+              <DatePickerDemo selectedDate={startDate} onDateSelect={setStartDate} />
             </div>
             <h2 className="w-full text-center px-2">Até</h2>
-
             <div className="w-full justify-start gap-2">
               <Calendar size={16} />
-              <DatePickerDemo />
+              <DatePickerDemo selectedDate={endDate} onDateSelect={setEndDate} />
             </div>
 
             <SheetClose asChild>
