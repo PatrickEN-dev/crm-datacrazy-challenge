@@ -10,7 +10,7 @@ const UserCardList = () => {
   return (
     <>
       {users.length > 0 ? (
-        <ul className="md:flex md:flex-row mt-3 md:w-full md:min-w-fit md:overflow-x-auto md: px-4 md:flex-wrap md:max-w-[100%] md:m-auto">
+        <ul className="md:flex md:flex-row mt-3 md:w-full md:min-w-fit md:overflow-x-auto md:px-7 md:flex-wrap md:max-w-[100%] md:items-center md:justify-center">
           {users.map((user: IUser) => (
             <li key={user.id}>
               <UserCard userInfo={user} />

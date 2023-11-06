@@ -94,17 +94,27 @@ function NewHeader() {
               <h1>Por período</h1>
             </SheetTrigger>
 
-            <div className="w-full justify-start gap-2">
-              <Calendar size={16} />
-              <DatePickerDemo selectedDate={startDate} onDateSelect={setStartDate} />
-            </div>
-            <h2 className="w-full text-center px-2">Até</h2>
-            <div className="w-full justify-start gap-2">
-              <Calendar size={16} />
-              <DatePickerDemo selectedDate={endDate} onDateSelect={setEndDate} />
+            <div className="flex flex-col">
+              <div className="w-[80%] justify-start gap-2 flex items-center">
+                <Calendar size={16} />
+                <DatePickerDemo selectedDate={startDate} onDateSelect={setStartDate} />
+              </div>
+
+              <h2 className="w-full text-center px-2">Até</h2>
+
+              <div className="w-[80%] justify-start gap-2 flex items-center">
+                <Calendar size={16} />
+                <DatePickerDemo selectedDate={endDate} onDateSelect={setEndDate} />
+              </div>
             </div>
 
-            <Button onClick={handleSearchUserByDateClick}>Aplicar</Button>
+            <Button className="px-5 mb-5" onClick={handleSearchUserByDateClick}>
+              Aplicar
+            </Button>
+
+            <SheetTrigger asChild>
+              <h1>Por ordenação</h1>
+            </SheetTrigger>
 
             <SheetClose asChild>
               <Button

@@ -7,7 +7,7 @@ export default function Home() {
     <div>
       <NewHeader />
 
-      <main className="flex flex-col items-center h-full">
+      <main className="flex flex-col items-center h-full w-full">
         <div className="h-full mt-5">
           <CreateUserButton />
         </div>
