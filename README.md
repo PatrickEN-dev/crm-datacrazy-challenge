@@ -18,9 +18,7 @@ Antes de executar o projeto, certifique-se de ter as seguintes ferramentas insta
 
 ### Frontend
 
-2. Navegue para a pasta do frontend:
-
-cd frontend
+2. Navegue para a pasta do frontend: cd frontend
 
 3. Instale as dependências do frontend:
    yarn install
@@ -29,8 +27,7 @@ cd frontend
 
 ### Backend
 
-4. Navegue para a pasta do backend:
-   cd backend
+4. Navegue para a pasta do backend: cd backend
 
 5. Instale as dependências do backend:
    yarn install
